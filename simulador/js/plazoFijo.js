@@ -3,6 +3,7 @@ const tna = 0.435
 
 let seleccion
 
+// Valido el monto y lo devuelvo
 let monto = () => {
     let validar
     while (true) {
@@ -16,6 +17,7 @@ let monto = () => {
     return validar
 }
 
+// Valido los dias y los devuelvo
 let fecha = () => {
     let validar
     while (true) {
@@ -33,26 +35,31 @@ let fecha = () => {
     return validar
 }
 
+// Calculo el total del plazo fijo
+let total = (monto, dias) => {
+    let interes = interesGanado(monto , dias)
+    return parseFloat(monto) + parseFloat(interes)
+}
+
+// Calculo los intereses ganados por los dias que se establece el plazo fijo
+let interesGanado = (monto, dias) => {
+    let interes = (monto * tna / ano) * dias
+    return interes.toFixed(2)
+}
+
 do {
     seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1.Plazo Fijo\n2.Salir")
     if (seleccion == 1) {
         let pesos = monto()
         let dias = fecha()
-        console.log("El monto ingresado fue de "+ )
+        console.log("El monto ingresado fue de "+ pesos)
+        console.log("En la cantidad de dias "+ dias)
+        console.log("Con una TNA (tasa nominal anual) de "+ (tna * 100) +"%")
+        console.log("Te queda un total de "+ total(pesos,dias))
+        console.log("Con un interes de "+ interesGanado(pesos,dias))
     } else if (seleccion == 2){
         console.log("Gracias por su visita")
     } else {
         alert("Opcion incorrecta")
     }
 } while (seleccion != 2);
-
-
-
-
-// Calculo el total del plazo fijo
-let total = (monto, dias) => {
-    interesGanado(monto , dias) + monto
-}
-
-// Calculo los intereses ganados por los dias que se establece el plazo fijo
-let interesGanado = (monto, dias) => (monto * tna / ano) * dias
