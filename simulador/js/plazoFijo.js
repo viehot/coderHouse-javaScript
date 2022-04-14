@@ -16,12 +16,33 @@ let monto = () => {
     return validar
 }
 
+let fecha = () => {
+    let validar
+    while (true) {
+        validar = prompt("Ingrese los dias, desde 30 y hasta 365")
+        if (!isNaN(validar) && validar != null && validar != "") {
+            if (validar >= 30 && validar <= 365) {
+                break
+            } else {
+                alert("Ingrese los dias entre 30 y 365")
+            }
+        } else {
+            alert("Ingrese un numero")
+        }
+    }
+    return validar
+}
+
 do {
     seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1.Plazo Fijo\n2.Salir")
     if (seleccion == 1) {
         let pesos = monto()
+        let dias = fecha()
+        console.log("El monto ingresado fue de "+ )
+    } else if (seleccion == 2){
+        console.log("Gracias por su visita")
     } else {
-        
+        alert("Opcion incorrecta")
     }
 } while (seleccion != 2);
 
