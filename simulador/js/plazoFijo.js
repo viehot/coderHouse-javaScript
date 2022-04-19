@@ -1,7 +1,23 @@
 const ano = 365
 const tna = 0.435
-
 let seleccion
+const listPlazo = []
+
+class PlazoFijo {
+    constructor(monto , dias) {
+        this.monto = monto
+        this.dias = dias
+    }
+    total(){
+        let interes = this.interesGanado()
+        return parseFloat(this.monto) + parseFloat(interes)
+    }
+    interesGanado(){
+        let interes = (this.monto * tna / ano) * this.dias
+        return interes.toFixed(2)
+    }
+}
+
 
 // Valido el monto y lo devuelvo
 let monto = () => {
@@ -35,31 +51,26 @@ let fecha = () => {
     return validar
 }
 
-// Calculo el total del plazo fijo
-let total = (monto, dias) => {
-    let interes = interesGanado(monto , dias)
-    return parseFloat(monto) + parseFloat(interes)
-}
-
-// Calculo los intereses ganados por los dias que se establece el plazo fijo
-let interesGanado = (monto, dias) => {
-    let interes = (monto * tna / ano) * dias
-    return interes.toFixed(2)
-}
 
 do {
-    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1.Plazo Fijo\n2.Salir")
+    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1.Plazo Fijo\n2.Listar Plazos Fijos\n3.Salir")
     if (seleccion == 1) {
         let pesos = monto()
         let dias = fecha()
-        console.log("El monto ingresado fue de "+ pesos)
-        console.log("En la cantidad de dias "+ dias)
-        console.log("Con una TNA (tasa nominal anual) de "+ (tna * 100) +"%")
-        console.log("Te queda un total de "+ total(pesos,dias))
-        console.log("Con un interes de "+ interesGanado(pesos,dias))
+        const plazo = new PlazoFijo(pesos,dias)
+        listPlazo.push(plazo)
     } else if (seleccion == 2){
+        for (let pl of listPlazo) {
+            console.log("El monto ingresado fue de "+ pl.monto)
+            console.log("En la cantidad de dias "+ pl.dias)
+            console.log("Con una TNA (tasa nominal anual) de "+ (tna * 100) +"%")
+            console.log("Con un interes de "+ pl.interesGanado())
+            console.log("Te queda un total de "+ pl.total())
+            console.log("++++++++++++++++++++")
+        }
+    } else if (seleccion == 3){
         console.log("Gracias por su visita")
     } else {
         alert("Opcion incorrecta")
     }
-} while (seleccion != 2);
+} while (seleccion != 3);
