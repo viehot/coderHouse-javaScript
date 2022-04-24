@@ -60,13 +60,17 @@ do {
         const plazo = new PlazoFijo(pesos,dias)
         listPlazo.push(plazo)
     } else if (seleccion == 2){
-        for (let pl of listPlazo) {
-            console.log("El monto ingresado fue de "+ pl.monto)
-            console.log("En la cantidad de dias "+ pl.dias)
-            console.log("Con una TNA (tasa nominal anual) de "+ (tna * 100) +"%")
-            console.log("Con un interes de "+ pl.interesGanado())
-            console.log("Te queda un total de "+ pl.total())
-            console.log("++++++++++++++++++++")
+        if (listPlazo.length != 0) {
+            for (let pl of listPlazo) {
+                console.log("El monto ingresado fue de "+ pl.monto)
+                console.log("En la cantidad de dias "+ pl.dias)
+                console.log("Con una TNA (tasa nominal anual) de "+ (tna * 100) +"%")
+                console.log("Con un interes de "+ pl.interesGanado())
+                console.log("Te queda un total de "+ pl.total())
+                console.log("++++++++++++++++++++")
+            }
+        } else {
+            alert("No hay Plazos Fijos echos")
         }
     } else if (seleccion == 3){
         console.log("Gracias por su visita")
