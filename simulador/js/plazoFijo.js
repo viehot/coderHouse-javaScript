@@ -65,7 +65,7 @@ do {
             listarMayorAMenorPlazoFijo();
             break;
         case 4:
-            
+            listarMenorAMayorPlazoFijo();
             break;
         case 5:
             console.log("Gracias por su visita");
@@ -91,6 +91,14 @@ function validarNumero(validar) {
 function listarMayorAMenorPlazoFijo (){
     let orden = copiarArray()
     orden.sort((a,b) => b.monto - a.monto)
+    verLista(orden)
+}
+
+//funcion para ordenar de menor a mayor los plazo fijos
+//recibe una copia del array para no perjudicar el original
+function listarMenorAMayorPlazoFijo (){
+    let orden = copiarArray()
+    orden.sort((a,b) => a.monto - b.monto)
     verLista(orden)
 }
 
