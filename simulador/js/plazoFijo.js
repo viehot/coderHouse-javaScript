@@ -83,3 +83,12 @@ do {
 function validarNumero(validar) {
     return (!isNaN(validar) && validar != null && validar != "")
 }
+
+function listarMayorAMenorPlazoFijo (){
+    let orden = copiarArray()
+    orden.sort((a,b) => a - b)
+}
+
+function copiarArray () {
+    return listPlazo.slice(0)
+}
