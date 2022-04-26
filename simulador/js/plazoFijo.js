@@ -24,7 +24,7 @@ let monto = () => {
     let validar
     while (true) {
         validar = prompt("Ingrese el monto")
-        if (!isNaN(validar) && validar != null && validar != "") {
+        if (validarNumero(validar)) {
             break
         } else {
             alert("Ingrese un numero")
@@ -38,7 +38,7 @@ let fecha = () => {
     let validar
     while (true) {
         validar = prompt("Ingrese los dias, desde 30 y hasta 365")
-        if (!isNaN(validar) && validar != null && validar != "") {
+        if (validarNumero(validar)) {
             if (validar >= 30 && validar <= 365) {
                 break
             } else {
@@ -78,3 +78,8 @@ do {
         alert("Opcion incorrecta")
     }
 } while (seleccion != 3);
+
+//Valido que sea un numero lo que ingrese el usuario, devuelvo un booleano
+function validarNumero(validar) {
+    return (!isNaN(validar) && validar != null && validar != "")
+}
