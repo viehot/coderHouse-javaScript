@@ -54,33 +54,28 @@ let fecha = () => {
 
 do {
     seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1.Plazo Fijo\n2.Listar Plazos Fijos\n3.Listar de mayor a menor\n4.Listar de menor a mayor\n5.Salir")
-    if (seleccion == 1) {
-        let pesos = monto()
-        let dias = fecha()
-        const plazo = new PlazoFijo(pesos,dias)
-        listPlazo.push(plazo)
-    } else if (seleccion == 2){
-        listarMayorAMenorPlazoFijo()
-        /*
-        if (listPlazo.length != 0) {
-            for (let pl of listPlazo) {
-                console.log("El monto ingresado fue de "+ pl.monto)
-                console.log("En la cantidad de dias "+ pl.dias)
-                console.log("Con una TNA (tasa nominal anual) de "+ (tna * 100) +"%")
-                console.log("Con un interes de "+ pl.interesGanado())
-                console.log("Te queda un total de "+ pl.total())
-                console.log("++++++++++++++++++++")
-            }
-        } else {
-            alert("No hay Plazos Fijos echos")
-        }
-        */
-    } else if (seleccion == 3){
-        console.log("Gracias por su visita")
-    } else {
-        alert("Opcion incorrecta")
+    switch (parseInt(seleccion)) {
+        case 1:
+            crearPlazoFijo();
+            break;
+        case 2:
+            verLista(listPlazo);
+            break;
+        case 3:
+            listarMayorAMenorPlazoFijo();
+            break;
+        case 4:
+            
+            break;
+        case 5:
+            console.log("Gracias por su visita");
+            break;
+    
+        default:
+            alert("Opcion incorrecta");
+            break;
     }
-} while (seleccion != 3);
+} while (seleccion != 5);
 
 function crearPlazoFijo () {
     listPlazo.push( new PlazoFijo( monto(), fecha()));
@@ -107,6 +102,7 @@ function copiarArray () {
 //funcion para mostrar en consola el array completo
 function verLista (arrayPlazoFijo) {
     if (arrayPlazoFijo.length != 0) {
+        console.log("LISTA DE PLAZO FIJO")
         for (let pl of arrayPlazoFijo) {
             console.log("El monto ingresado fue de "+ pl.monto)
             console.log("En la cantidad de dias "+ pl.dias)
@@ -118,25 +114,4 @@ function verLista (arrayPlazoFijo) {
     } else {
         alert("No hay Plazos Fijos echos")
     }
-}
-
-switch (seleccion) {
-    case 1:
-        crearPlazoFijo()
-        break;
-    case 2:
-        
-        break;
-    case 3:
-        
-        break;
-    case 4:
-        
-        break;
-    case 5:
-        
-        break;
-
-    default:
-        break;
 }
