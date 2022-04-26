@@ -53,7 +53,7 @@ let fecha = () => {
 
 
 do {
-    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1.Plazo Fijo\n2.Listar Plazos Fijos\n3.Salir")
+    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1.Plazo Fijo\n2.Listar Plazos Fijos\n3.Listar de mayor a menor\n4.Listar de menor a mayor\n5.Salir")
     if (seleccion == 1) {
         let pesos = monto()
         let dias = fecha()
@@ -82,21 +82,29 @@ do {
     }
 } while (seleccion != 3);
 
+function crearPlazoFijo () {
+    listPlazo.push( new PlazoFijo( monto(), fecha()));
+}
+
 //Valido que sea un numero lo que ingrese el usuario, devuelvo un booleano
 function validarNumero(validar) {
     return (!isNaN(validar) && validar != null && validar != "")
 }
 
+//funcion para ordenar de mayor a menor los plazo fijos
+//recibe una copia del array para no perjudicar el original
 function listarMayorAMenorPlazoFijo (){
     let orden = copiarArray()
     orden.sort((a,b) => b.monto - a.monto)
     verLista(orden)
 }
 
+// funcion que devuelve una copia del array para evitar cambios en el original
 function copiarArray () {
     return listPlazo.slice(0)
 }
 
+//funcion para mostrar en consola el array completo
 function verLista (arrayPlazoFijo) {
     if (arrayPlazoFijo.length != 0) {
         for (let pl of arrayPlazoFijo) {
@@ -110,4 +118,25 @@ function verLista (arrayPlazoFijo) {
     } else {
         alert("No hay Plazos Fijos echos")
     }
+}
+
+switch (seleccion) {
+    case 1:
+        crearPlazoFijo()
+        break;
+    case 2:
+        
+        break;
+    case 3:
+        
+        break;
+    case 4:
+        
+        break;
+    case 5:
+        
+        break;
+
+    default:
+        break;
 }
