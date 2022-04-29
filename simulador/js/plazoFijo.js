@@ -51,11 +51,12 @@ let fecha = () => {
 
 //Arranca
 do {
-    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1. Plazo Fijo\n2. Listar Plazos Fijos\n3. Listar de mayor a menor\n4. Listar de menor a mayor\n5. Salir");
+    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1. Plazo Fijo\n2. Salir");
     switch (parseInt(seleccion)) {
         case 1:
             crearPlazoFijo();
             break;
+        /*
         case 2:
             verLista(listPlazoFijo);
             break;
@@ -65,15 +66,17 @@ do {
         case 4:
             verLista(ordenarMenorAMayorPlazoFijo());
             break;
-        case 5:
+        */
+        case 2:
+            verLista(listPlazoFijo);
             console.log("Gracias por su visita");
             break;
-    
+        
         default:
             alert("Opcion incorrecta");
             break;
     }
-} while (seleccion != 5);
+} while (seleccion != 2);
 
 
 //creo el objeto plazo fijo, pasandole por parametro las funciones que validan los datos y lo agrego a la array
@@ -87,7 +90,7 @@ function verLista (arrayPlazoFijo) {
     if (arrayPlazoFijo.length != 0) {
         console.log("LISTA DE PLAZO FIJO");
         let tableDOMLista = document.getElementById("listaPlazoFijo");
-        console.log(tableDOMLista);
+        tableDOMLista.innerHTML = "";
         for (let pl of arrayPlazoFijo) {
             tableDOMLista.innerHTML += `<tr>
                 <td>${pl.monto}</td>
@@ -95,15 +98,7 @@ function verLista (arrayPlazoFijo) {
                 <td>${tna * 100}%</td>
                 <td>${pl.interesGanado()}</td>
                 <td>${pl.total()}</td>
-            </tr>`
-            /*
-            console.log("El monto ingresado fue de "+ pl.monto);
-            console.log("En "+ pl.dias + " dias");
-            console.log("Con una TNA (tasa nominal anual) de "+ (tna * 100) +"%");
-            console.log("Con un interes de "+ pl.interesGanado());
-            console.log("Te queda un total de "+ pl.total());
-            console.log("++++++++++++++++++++");
-            */
+            </tr>`;
         }
     } else {
         alert("No hay Plazos Fijos echos");
