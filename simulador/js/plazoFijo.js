@@ -51,23 +51,16 @@ let fecha = () => {
 
 //Arranca
 do {
-    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1. Plazo Fijo\n2. Salir");
+    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1. Plazo Fijo\n2. Cambiar color del boton\n3. Salir");
     switch (parseInt(seleccion)) {
         case 1:
             crearPlazoFijo();
             break;
-        /*
         case 2:
-            verLista(listPlazoFijo);
+            let changeColorButton = document.getElementsByTagName("button");
+            changeColorButton[0].className = "btn btn-success";
             break;
         case 3:
-            verLista(ordenarMayorAMenorPlazoFijo());
-            break;
-        case 4:
-            verLista(ordenarMenorAMayorPlazoFijo());
-            break;
-        */
-        case 2:
             verLista(listPlazoFijo);
             console.log("Gracias por su visita");
             break;
@@ -76,7 +69,7 @@ do {
             alert("Opcion incorrecta");
             break;
     }
-} while (seleccion != 2);
+} while (seleccion != 3);
 
 
 //creo el objeto plazo fijo, pasandole por parametro las funciones que validan los datos y lo agrego a la array
