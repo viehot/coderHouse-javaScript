@@ -86,13 +86,24 @@ function crearPlazoFijo () {
 function verLista (arrayPlazoFijo) {
     if (arrayPlazoFijo.length != 0) {
         console.log("LISTA DE PLAZO FIJO");
+        let tableDOMLista = document.getElementById("listaPlazoFijo");
+        console.log(tableDOMLista);
         for (let pl of arrayPlazoFijo) {
+            tableDOMLista.innerHTML += `<tr>
+                <td>${pl.monto}</td>
+                <td>${pl.dias}</td>
+                <td>${tna * 100}%</td>
+                <td>${pl.interesGanado()}</td>
+                <td>${pl.total()}</td>
+            </tr>`
+            /*
             console.log("El monto ingresado fue de "+ pl.monto);
             console.log("En "+ pl.dias + " dias");
             console.log("Con una TNA (tasa nominal anual) de "+ (tna * 100) +"%");
             console.log("Con un interes de "+ pl.interesGanado());
             console.log("Te queda un total de "+ pl.total());
             console.log("++++++++++++++++++++");
+            */
         }
     } else {
         alert("No hay Plazos Fijos echos");
