@@ -20,6 +20,7 @@ class PlazoFijo {
 const formulario = document.getElementById("formPlazoFijo");
 formulario.addEventListener("submit", crearPlazoFijo);
 
+//Los botones para ordenar estan definidos con una clase, cada vez que se oprima va a llamar a la funcion que le corresponda
 const lista = document.getElementsByClassName("ordenar");
 
 lista[0].onclick = () => {verLista(listPlazoFijo)};
@@ -82,7 +83,7 @@ do {
 } while (seleccion != 3);
 */
 
-//creo el objeto plazo fijo, pasandole por parametro las funciones que validan los datos y lo agrego a la array
+//tomo el evento del formulario, selecciono los hijos que tienen los datos, se los paso al array creando un nuevo plazo fijo
 function crearPlazoFijo (e) {
     e.preventDefault();
     let datos = e.target;
@@ -91,7 +92,7 @@ function crearPlazoFijo (e) {
     listPlazoFijo.push( new PlazoFijo( monto, fecha));
 }
 
-//funcion para mostrar en consola el array completo
+//funcion para mostrar en la tabla el array completo
 //Recibe un array como parametro verifica que no este vacia y la itera
 function verLista (arrayPlazoFijo) {
     if (arrayPlazoFijo.length != 0) {
