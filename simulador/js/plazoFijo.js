@@ -17,6 +17,11 @@ class PlazoFijo {
     }
 }
 
+const formulario = document.getElementById("formPlazoFijo");
+
+formulario.addEventListener("submit", crearPlazoFijo);
+
+/*
 // Valido el monto y devuelvo el numero
 let monto = () => {
     let validar = 0;
@@ -48,8 +53,9 @@ let fecha = () => {
     }
     return validar;
 }
-
+*/
 //Arranca
+/*
 do {
     seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1. Plazo Fijo\n2. Cambiar color del boton\n3. Salir");
     switch (parseInt(seleccion)) {
@@ -70,11 +76,15 @@ do {
             break;
     }
 } while (seleccion != 3);
-
+*/
 
 //creo el objeto plazo fijo, pasandole por parametro las funciones que validan los datos y lo agrego a la array
-function crearPlazoFijo () {
-    listPlazoFijo.push( new PlazoFijo( monto(), fecha()));
+function crearPlazoFijo (e) {
+    e.preventDefault();
+    let datos = e.target;
+    let monto = datos.children[0].children[1].value;
+    let fecha = datos.children[1].children[1].value;
+    listPlazoFijo.push( new PlazoFijo( monto, fecha));
 }
 
 //funcion para mostrar en consola el array completo
