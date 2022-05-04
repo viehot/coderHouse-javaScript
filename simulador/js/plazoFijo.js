@@ -18,9 +18,11 @@ class PlazoFijo {
 }
 
 const formulario = document.getElementById("formPlazoFijo");
-
 formulario.addEventListener("submit", crearPlazoFijo);
 
+const lista = document.getElementsByClassName("ordenar");
+
+lista[0].addEventListener("click", verLista);
 /*
 // Valido el monto y devuelvo el numero
 let monto = () => {
@@ -89,12 +91,11 @@ function crearPlazoFijo (e) {
 
 //funcion para mostrar en consola el array completo
 //Recibe un array como parametro verifica que no este vacia y la itera
-function verLista (arrayPlazoFijo) {
-    if (arrayPlazoFijo.length != 0) {
-        console.log("LISTA DE PLAZO FIJO");
+function verLista () {
+    if (listPlazoFijo.length != 0) {
         let tableDOMLista = document.getElementById("listaPlazoFijo");
         tableDOMLista.innerHTML = "";
-        for (let pl of arrayPlazoFijo) {
+        for (let pl of listPlazoFijo) {
             tableDOMLista.innerHTML += `<tr>
                 <td>${pl.monto}</td>
                 <td>${pl.dias}</td>
