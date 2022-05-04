@@ -22,7 +22,9 @@ formulario.addEventListener("submit", crearPlazoFijo);
 
 const lista = document.getElementsByClassName("ordenar");
 
-lista[0].addEventListener("click", verLista);
+lista[0].onclick = () => {verLista(listPlazoFijo)};
+lista[1].onclick = () => {verLista(ordenarMayorAMenorPlazoFijo())};
+lista[2].onclick = () => {verLista(ordenarMenorAMayorPlazoFijo())};
 /*
 // Valido el monto y devuelvo el numero
 let monto = () => {
@@ -91,11 +93,11 @@ function crearPlazoFijo (e) {
 
 //funcion para mostrar en consola el array completo
 //Recibe un array como parametro verifica que no este vacia y la itera
-function verLista () {
-    if (listPlazoFijo.length != 0) {
+function verLista (arrayPlazoFijo) {
+    if (arrayPlazoFijo.length != 0) {
         let tableDOMLista = document.getElementById("listaPlazoFijo");
         tableDOMLista.innerHTML = "";
-        for (let pl of listPlazoFijo) {
+        for (let pl of arrayPlazoFijo) {
             tableDOMLista.innerHTML += `<tr>
                 <td>${pl.monto}</td>
                 <td>${pl.dias}</td>
