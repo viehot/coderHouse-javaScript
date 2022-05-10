@@ -86,9 +86,8 @@ do {
 //tomo el evento del formulario, selecciono los hijos que tienen los datos, se los paso al array creando un nuevo plazo fijo
 function crearPlazoFijo (e) {
     e.preventDefault();
-    let datos = e.target;
-    let monto = datos.children[0].children[1].value;
-    let fecha = datos.children[1].children[1].value;
+    let monto = document.getElementsByClassName("ch-monto")[0].value;
+    let fecha = document.getElementsByClassName("ch-dias")[0].value;
     listPlazoFijo.push( new PlazoFijo( monto, fecha));
 }
 
