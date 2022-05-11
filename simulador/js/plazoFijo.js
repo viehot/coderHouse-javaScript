@@ -1,6 +1,5 @@
 const ano = 365;
 const tna = 0.435;
-let seleccion = 0;
 const listPlazoFijo = [];
 //Guardo en una constante el formulario de plazo fijo
 const formulario = document.getElementById("formPlazoFijo");
