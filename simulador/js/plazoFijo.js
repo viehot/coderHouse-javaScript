@@ -2,6 +2,10 @@ const ano = 365;
 const tna = 0.435;
 let seleccion = 0;
 const listPlazoFijo = [];
+//Guardo en una constante el formulario de plazo fijo
+const formulario = document.getElementById("formPlazoFijo");
+//Guardo en una constante los botones para ordenar la lista de plazo fijo
+const lista = document.getElementsByClassName("ordenar");
 
 class PlazoFijo {
     constructor(monto , dias) {
@@ -17,57 +21,28 @@ class PlazoFijo {
     }
 }
 
-const formulario = document.getElementById("formPlazoFijo");
+//Llamo la funcion para mostrar los plazos fijos que tiene en el Local Storage
+mostrarStorage();
+
+//Activo el evento submit del formulario del plazo fijo
 formulario.addEventListener("submit", crearPlazoFijo);
 
 //Los botones para ordenar estan definidos con una clase, cada vez que se oprima va a llamar a la funcion que le corresponda
-const lista = document.getElementsByClassName("ordenar");
-
 lista[0].onclick = () => {verLista(listPlazoFijo)};
 lista[1].onclick = () => {verLista(ordenarMayorAMenorPlazoFijo())};
 lista[2].onclick = () => {verLista(ordenarMenorAMayorPlazoFijo())};
-/*
-// Valido el monto y devuelvo el numero
-let monto = () => {
-    let validar = 0;
-    while (true) {
-        validar = prompt("Ingrese el monto");
-        if (validarNumero(validar)) {
-            break
-        } else {
-            alert("Ingrese un numero");
-        }
-    }
-    return validar;
-}
 
-// Valido los dias y devuelvo el numero
-let fecha = () => {
-    let validar = 0;
-    while (true) {
-        validar = prompt("Ingrese los dias, desde 30 y hasta 365");
-        if (validarNumero(validar)) {
-            if (validar >= 30 && validar <= 365) {
-                break
-            } else {
-                alert("Ingrese los dias entre 30 y 365");
-            }
-        } else {
-            alert("Ingrese un numero");
-        }
-    }
-    return validar;
-}
-*/
 
-//tomo el evento del formulario, selecciono los hijos que tienen los datos, se los paso al array creando un nuevo plazo fijo
+
+//tomo el evento del formulario, selecciono los datos del input, se los paso al array creando un nuevo plazo fijo
+//llamo a la funcion para guardarlos en el local Storage y los muestra en la lista
 function crearPlazoFijo (e) {
     e.preventDefault();
     let monto = document.getElementsByClassName("ch-monto")[0].value;
     let fecha = document.getElementsByClassName("ch-dias")[0].value;
     listPlazoFijo.push( new PlazoFijo( monto, fecha));
-    const arrayLocalStorag = JSON.stringify(listPlazoFijo);
-    localStorage.setItem("plazoFijo", arrayLocalStorag);
+    cargarStorage();
+    verLista(listPlazoFijo);
 }
 
 //funcion para mostrar en la tabla el array completo
@@ -110,4 +85,21 @@ function copiarArray () {
 //Valido que sea un numero lo que ingrese el usuario, devuelvo un booleano
 function validarNumero(validar) {
     return (!isNaN(validar) && validar != null && validar != "");
+}
+
+//Cargo los plazos fijos en el Local Storage
+function cargarStorage() {
+    const arrayLocalStorag = JSON.stringify(listPlazoFijo);
+    localStorage.setItem("plazoFijo", arrayLocalStorag);
+}
+
+//Muestro los plazos fijos que previamente se cargaron en el Local Storage
+function mostrarStorage() {
+    const arrayGetStorage = JSON.parse(localStorage.getItem("plazoFijo"));
+    if(arrayGetStorage != null) {
+        for (const pl of arrayGetStorage) {
+            listPlazoFijo.push(new PlazoFijo(pl.monto,pl.dias));
+        }
+        verLista(listPlazoFijo);
+    }
 }
