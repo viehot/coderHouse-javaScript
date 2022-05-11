@@ -59,29 +59,6 @@ let fecha = () => {
     return validar;
 }
 */
-//Arranca
-/*
-do {
-    seleccion = prompt("Bievenido al simulador de plazo fijo.\n\nSeleccione la opcion que desea\n1. Plazo Fijo\n2. Cambiar color del boton\n3. Salir");
-    switch (parseInt(seleccion)) {
-        case 1:
-            crearPlazoFijo();
-            break;
-        case 2:
-            let changeColorButton = document.getElementsByTagName("button");
-            changeColorButton[0].className = "btn btn-success";
-            break;
-        case 3:
-            verLista(listPlazoFijo);
-            console.log("Gracias por su visita");
-            break;
-        
-        default:
-            alert("Opcion incorrecta");
-            break;
-    }
-} while (seleccion != 3);
-*/
 
 //tomo el evento del formulario, selecciono los hijos que tienen los datos, se los paso al array creando un nuevo plazo fijo
 function crearPlazoFijo (e) {
@@ -89,6 +66,8 @@ function crearPlazoFijo (e) {
     let monto = document.getElementsByClassName("ch-monto")[0].value;
     let fecha = document.getElementsByClassName("ch-dias")[0].value;
     listPlazoFijo.push( new PlazoFijo( monto, fecha));
+    const arrayLocalStorag = JSON.stringify(listPlazoFijo);
+    localStorage.setItem("plazoFijo", arrayLocalStorag);
 }
 
 //funcion para mostrar en la tabla el array completo
