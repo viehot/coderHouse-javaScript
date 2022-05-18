@@ -22,7 +22,8 @@ class PlazoFijo {
 
 //Llamo la funcion para mostrar los plazos fijos que tiene en el Local Storage
 mostrarStorage();
-
+//Llamo la funcion para mostrar el monto total de plazos fijos
+mostrarTotal ();
 //Activo el evento submit del formulario del plazo fijo
 formulario.addEventListener("submit", crearPlazoFijo);
 
@@ -119,10 +120,11 @@ function alertaErrorNumero() {
 }
 
 function alertaErrorValorDias() {
-  alert("Ingrese un la cantidad de dias correctas");
+  alert("Ingrese la cantidad de dias correctas");
   return false;
 }
 
+//Funcion que verifica si el monto y el dia son correcto, utilizo la exprecion ternaria para verificar devuelve un booleano
 function checkearDatos(monto, dias) {
   let validar1 = validarNumero(monto) ? true : alertaErrorNumero();
   let validar2 = validarNumero(dias)
@@ -131,4 +133,25 @@ function checkearDatos(monto, dias) {
       : alertaErrorValorDias()
     : alertaErrorNumero();
   return validar1 && validar2;
+}
+
+//Creo un array donde acumulo todos los montos con la Desestructuración
+function acumuloMontoPlazoFijo () {
+    let total = [];
+    for (const pl of listPlazoFijo) {
+        let {monto} = pl;
+        total.push(parseInt(monto));
+    }
+    return total;
+}
+
+//Utilizo el spread para sumar todos los montos y sacar el total
+function totalMontoPlazoFijo (...total){
+    return total.reduce((acc , n) => acc + n,0);
+}
+
+// funcion que muestra el total de todos los montos en el html
+function mostrarTotal () {
+    let mostrar = document.getElementsByClassName("totalPlazoFijo");
+    mostrar[0].innerHTML = `El total del monto del plazo fijo es ${totalMontoPlazoFijo(...acumuloMontoPlazoFijo())}`;
 }
