@@ -23,7 +23,7 @@ class PlazoFijo {
 //Llamo la funcion para mostrar los plazos fijos que tiene en el Local Storage
 mostrarStorage();
 //Llamo la funcion para mostrar el monto total de plazos fijos
-mostrarTotal ();
+mostrarTotal();
 //Activo el evento submit del formulario del plazo fijo
 formulario.addEventListener("submit", crearPlazoFijo);
 
@@ -115,12 +115,30 @@ function mostrarStorage() {
 }
 
 function alertaErrorNumero() {
-  alert("Ingrese un numero");
+  Swal.fire({
+    icon: "error",
+    title: "Ingrese un numero",
+    showClass: {
+      popup: "animate__animated animate__fadeInDown",
+    },
+    hideClass: {
+      popup: "animate__animated animate__fadeOutUp",
+    },
+  });
   return false;
 }
 
 function alertaErrorValorDias() {
-  alert("Ingrese la cantidad de dias correctas");
+  Swal.fire({
+    icon: "error",
+    title: "Ingrese los dias",
+    showClass: {
+      popup: "animate__animated animate__fadeInDown",
+    },
+    hideClass: {
+      popup: "animate__animated animate__fadeOutUp",
+    },
+  });
   return false;
 }
 
@@ -136,22 +154,24 @@ function checkearDatos(monto, dias) {
 }
 
 //Creo un array donde acumulo todos los montos con la Desestructuración
-function acumuloMontoPlazoFijo () {
-    let total = [];
-    for (const pl of listPlazoFijo) {
-        let {monto} = pl;
-        total.push(parseInt(monto));
-    }
-    return total;
+function acumuloMontoPlazoFijo() {
+  let total = [];
+  for (const pl of listPlazoFijo) {
+    let { monto } = pl;
+    total.push(parseInt(monto));
+  }
+  return total;
 }
 
 //Utilizo el spread para sumar todos los montos y sacar el total
-function totalMontoPlazoFijo (...total){
-    return total.reduce((acc , n) => acc + n,0);
+function totalMontoPlazoFijo(...total) {
+  return total.reduce((acc, n) => acc + n, 0);
 }
 
 // funcion que muestra el total de todos los montos en el html
-function mostrarTotal () {
-    let mostrar = document.getElementsByClassName("totalPlazoFijo");
-    mostrar[0].innerHTML = `El total del monto del plazo fijo es ${totalMontoPlazoFijo(...acumuloMontoPlazoFijo())}`;
+function mostrarTotal() {
+  let mostrar = document.getElementsByClassName("totalPlazoFijo");
+  mostrar[0].innerHTML = `El total del monto del plazo fijo es ${totalMontoPlazoFijo(
+    ...acumuloMontoPlazoFijo()
+  )}`;
 }
