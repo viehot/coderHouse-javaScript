@@ -64,6 +64,7 @@ function verLista(arrayPlazoFijo) {
                 <td>${tna * 100}%</td>
                 <td>${pl.interesGanado()}</td>
                 <td>${pl.total()}</td>
+                <td><button></button></td>
             </tr>`;
     }
   } else {
