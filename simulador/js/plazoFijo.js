@@ -176,3 +176,14 @@ function mostrarTotal() {
     ...acumuloMontoPlazoFijo()
   )}`;
 }
+
+const bdPlazo = async () => {
+  const resp = await fetch("/bd-plazofijo.json");
+  const data = await resp.json();
+
+  data.forEach(pl => {
+    console.log(pl.monto);
+    console.log(pl.dias);
+  });
+}
+bdPlazo();
