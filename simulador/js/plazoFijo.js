@@ -20,10 +20,24 @@ class PlazoFijo {
   }
 }
 
+//Funcion asincronica donde traigo de un json los datos de plazos fijos pre armados
+const bdPlazo = async () => {
+  const resp = await fetch("/bd-plazofijo.json");
+  const data = await resp.json();
+
+  data.forEach(pl => {
+    listPlazoFijo.push( new PlazoFijo(pl.monto, pl.dias));
+  });
+
+  verLista(listPlazoFijo);
+}
+
+//Llamos la funcion para mostrar los plazos fijos que estan en el json
+bdPlazo();
 //Llamo la funcion para mostrar los plazos fijos que tiene en el Local Storage
 mostrarStorage();
-//Llamo la funcion para mostrar el monto total de plazos fijos
-mostrarTotal();
+
+
 //Activo el evento submit del formulario del plazo fijo
 formulario.addEventListener("submit", crearPlazoFijo);
 
@@ -53,6 +67,7 @@ function crearPlazoFijo(e) {
 
 //funcion para mostrar en la tabla el array completo
 //Recibe un array como parametro verifica que no este vacia y la itera
+//Por ultimo muestro el total del monto de los plazos fijos
 function verLista(arrayPlazoFijo) {
   if (arrayPlazoFijo.length != 0) {
     let tableDOMLista = document.getElementById("listaPlazoFijo");
@@ -70,6 +85,7 @@ function verLista(arrayPlazoFijo) {
   } else {
     alert("No hay Plazos Fijos echos");
   }
+  mostrarTotal();
 }
 
 //funcion para ordenar de mayor a menor los plazo fijos
@@ -176,14 +192,3 @@ function mostrarTotal() {
     ...acumuloMontoPlazoFijo()
   )}`;
 }
-
-const bdPlazo = async () => {
-  const resp = await fetch("/bd-plazofijo.json");
-  const data = await resp.json();
-
-  data.forEach(pl => {
-    console.log(pl.monto);
-    console.log(pl.dias);
-  });
-}
-bdPlazo();
