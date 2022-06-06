@@ -7,7 +7,8 @@ const formulario = document.getElementById("formPlazoFijo");
 const lista = document.getElementsByClassName("ordenar");
 
 class PlazoFijo {
-  constructor(monto, dias) {
+  constructor(id, monto, dias) {
+    this.id = id;
     this.monto = monto;
     this.dias = dias;
   }
@@ -22,21 +23,20 @@ class PlazoFijo {
 
 //Funcion asincronica donde traigo de un json los datos de plazos fijos pre armados
 const bdPlazo = async () => {
-  const resp = await fetch("/bd-plazofijo.json");
+  const resp = await fetch("./bd-plazofijo.json");
   const data = await resp.json();
 
-  data.forEach(pl => {
-    listPlazoFijo.push( new PlazoFijo(pl.monto, pl.dias));
+  data.forEach((pl) => {
+    listPlazoFijo.push(new PlazoFijo(generateId(), pl.monto, pl.dias));
   });
 
   verLista(listPlazoFijo);
-}
+};
 
 //Llamos la funcion para mostrar los plazos fijos que estan en el json
 bdPlazo();
 //Llamo la funcion para mostrar los plazos fijos que tiene en el Local Storage
 mostrarStorage();
-
 
 //Activo el evento submit del formulario del plazo fijo
 formulario.addEventListener("submit", crearPlazoFijo);
@@ -52,6 +52,9 @@ lista[2].onclick = () => {
   verLista(ordenarMenorAMayorPlazoFijo());
 };
 
+//Funcion para generar ID automaticas
+const generateId = () => Math.random().toString(36).substr(2, 18);
+
 //tomo el evento del formulario, selecciono los datos del input, se los paso al array creando un nuevo plazo fijo
 //llamo a la funcion para guardarlos en el local Storage y los muestra en la lista
 function crearPlazoFijo(e) {
@@ -59,7 +62,7 @@ function crearPlazoFijo(e) {
   let monto = document.getElementsByClassName("ch-monto")[0].value;
   let fecha = document.getElementsByClassName("ch-dias")[0].value;
   if (checkearDatos(monto, fecha)) {
-    listPlazoFijo.push(new PlazoFijo(monto, fecha));
+    listPlazoFijo.push(new PlazoFijo(generateId(), monto, fecha));
     cargarStorage();
     verLista(listPlazoFijo);
   }
@@ -79,7 +82,7 @@ function verLista(arrayPlazoFijo) {
                 <td>${tna * 100}%</td>
                 <td>${pl.interesGanado()}</td>
                 <td>${pl.total()}</td>
-                <td><button></button></td>
+                <td><button id="plazo${pl.id}" class="btn btn-danger">Borrar</button></td>
             </tr>`;
     }
   } else {
@@ -125,7 +128,7 @@ function mostrarStorage() {
   const arrayGetStorage = JSON.parse(localStorage.getItem("plazoFijo"));
   if (arrayGetStorage != null) {
     for (const pl of arrayGetStorage) {
-      listPlazoFijo.push(new PlazoFijo(pl.monto, pl.dias));
+      listPlazoFijo.push(new PlazoFijo(pl.id , pl.monto, pl.dias));
     }
     verLista(listPlazoFijo);
   }
@@ -192,3 +195,5 @@ function mostrarTotal() {
     ...acumuloMontoPlazoFijo()
   )}`;
 }
+
+
