@@ -1,6 +1,6 @@
 [
-    {"monto": 100000, "dias": 60},
-    {"monto": 50000, "dias": 120},
-    {"monto": 200000, "dias": 30},
-    {"monto": 600000, "dias": 240}
+    {"id": "ktxfpbypl0b", "monto": 100000, "dias": 60},
+    {"id": "cxpduz50dyc", "monto": 50000, "dias": 120},
+    {"id": "8simnfvmkeo", "monto": 200000, "dias": 30},
+    {"id": "bls74nqjscc", "monto": 600000, "dias": 240}
 ]

@@ -5,6 +5,8 @@ const listPlazoFijo = [];
 const formulario = document.getElementById("formPlazoFijo");
 //Guardo en una constante los botones para ordenar la lista de plazo fijo
 const lista = document.getElementsByClassName("ordenar");
+// Guardo en una constante el cuerpo de la tabla
+const tableDOMLista = document.getElementById("listaPlazoFijo");
 
 class PlazoFijo {
   constructor(id, monto, dias) {
@@ -27,16 +29,14 @@ const bdPlazo = async () => {
   const data = await resp.json();
 
   data.forEach((pl) => {
-    listPlazoFijo.push(new PlazoFijo(generateId(), pl.monto, pl.dias));
+    listPlazoFijo.push(new PlazoFijo(pl.id, pl.monto, pl.dias));
   });
-
-  verLista(listPlazoFijo);
+  
+  mostrarStorage();
 };
 
 //Llamos la funcion para mostrar los plazos fijos que estan en el json
 bdPlazo();
-//Llamo la funcion para mostrar los plazos fijos que tiene en el Local Storage
-mostrarStorage();
 
 //Activo el evento submit del formulario del plazo fijo
 formulario.addEventListener("submit", crearPlazoFijo);
@@ -51,6 +51,21 @@ lista[1].onclick = () => {
 lista[2].onclick = () => {
   verLista(ordenarMenorAMayorPlazoFijo());
 };
+lista[3].onclick = () => {
+  borrarLocalStorage();
+};
+
+//Evento que elimina un plazo fijo del array y del HTML, tambien llama la funcion total para mantenerla actualizada
+tableDOMLista.addEventListener("click", (e) => {
+  let eventoTarget = e.target;
+  listPlazoFijo.splice(
+    listPlazoFijo.findIndex((plazo) => "plazo" + plazo.id == eventoTarget.id),
+    1
+  );
+  eliminarNodo(eventoTarget.id);
+  cargarStorage();
+  mostrarTotal();
+});
 
 //Funcion para generar ID automaticas
 const generateId = () => Math.random().toString(36).substr(2, 18);
@@ -73,7 +88,6 @@ function crearPlazoFijo(e) {
 //Por ultimo muestro el total del monto de los plazos fijos
 function verLista(arrayPlazoFijo) {
   if (arrayPlazoFijo.length != 0) {
-    let tableDOMLista = document.getElementById("listaPlazoFijo");
     tableDOMLista.innerHTML = "";
     for (let pl of arrayPlazoFijo) {
       tableDOMLista.innerHTML += `<tr>
@@ -82,13 +96,13 @@ function verLista(arrayPlazoFijo) {
                 <td>${tna * 100}%</td>
                 <td>${pl.interesGanado()}</td>
                 <td>${pl.total()}</td>
-                <td><button id="plazo${pl.id}" class="btn btn-danger">Borrar</button></td>
+                <td><input type="button" id="plazo${
+                  pl.id
+                }" class="btn btn-danger" value="Eliminar"></input></td>
             </tr>`;
     }
-  } else {
-    alert("No hay Plazos Fijos echos");
+    mostrarTotal();
   }
-  mostrarTotal();
 }
 
 //funcion para ordenar de mayor a menor los plazo fijos
@@ -123,15 +137,33 @@ function cargarStorage() {
   localStorage.setItem("plazoFijo", arrayLocalStorag);
 }
 
-//Muestro los plazos fijos que previamente se cargaron en el Local Storage
+//Borro los plazos fijos del local Storage
+function borrarLocalStorage() {
+  localStorage.removeItem("plazoFijo");
+}
+
+//Muestro los plazos fijos que previamente se cargaron en el Local Storage y las comparos para que no se repitan con el JSON
 function mostrarStorage() {
   const arrayGetStorage = JSON.parse(localStorage.getItem("plazoFijo"));
   if (arrayGetStorage != null) {
+    let ids = arrayDeID();
     for (const pl of arrayGetStorage) {
-      listPlazoFijo.push(new PlazoFijo(pl.id , pl.monto, pl.dias));
+        if (!ids.includes(pl.id)) {
+          listPlazoFijo.push(new PlazoFijo(pl.id, pl.monto, pl.dias));
+        }
     }
-    verLista(listPlazoFijo);
   }
+  verLista(listPlazoFijo);
+}
+
+//funcion que separa las id en una array
+function arrayDeID () {
+  let ids = [];
+  for (const pl of listPlazoFijo) {
+    let { id } = pl;
+    ids.push(id);
+  }
+  return ids;
 }
 
 function alertaErrorNumero() {
@@ -194,6 +226,12 @@ function mostrarTotal() {
   mostrar[0].innerHTML = `El total del monto del plazo fijo es ${totalMontoPlazoFijo(
     ...acumuloMontoPlazoFijo()
   )}`;
+}
+
+//funcion que elimina la fila de la tabla
+function eliminarNodo(idPlazo) {
+  let eliminarNodoPlazo = document.getElementById(idPlazo);
+  eliminarNodoPlazo.parentNode.parentNode.remove();
 }
 
 
